@@ -17,9 +17,9 @@ $array=array(
     'index.php' sarà la destinazione del link che verrà generato con la funzione buildmenu
     ed apparirà quindi nella proprietà href del link 
     */
-    'Home'=>'/php/corso/index.php',
-    'il mio blog'=>'/php/corso/blog.php',
-    'Login'=>'/php/corso/login.php'
+    'Home'=>'/corsomiky/index.php',
+    'il mio blog'=>'/corsomiky/blog.php',
+    'Login'=>'/corsomiky/login.php'
     /*
     
     ## ESERCIZIO ##: fare in modo che l'array sia generato leggendo il DB usando i post di tipo page
