@@ -16,11 +16,17 @@ salvati in un array associativo superglobale (ancora? Si ancora) $_POST
 
 require_once('functions.php');// ancora? Che palle...
 
+/* Valori di default [inizio]*/
+
+$errorMessage='';
+
+/* Valori di default [fine]*/
+
 /*
 Se viene inviato il parametro logout=yes distruggo il cookie
 lo faccio qui perchè setcookie va fatto prima di qualsiasi output a schermo
 */
-if($_GET['logout']=='yes'){
+if( isset($_GET['logout'])&&($_GET['logout']=='yes')){
     setcookie("LOGIN", "", time()-3600);
     // al prossimo ricaricamento di pagina il cookie non esiterà più
     // è necessario forzare il ricaricamento della pagina per non vederlo più
@@ -98,8 +104,17 @@ if(!isset($_COOKIE['LOGIN'])){
     ricevo i dati dal form e li uso per costruire la query che identificherà un utente
     dalla coppia username e password
     */
-    $userName=$_POST['uname']; // i valori andrebbero sanitizzati
-    $myPassword=$_POST['psw'];
+    if(isset($_POST['uname'])){
+        $userName=$_POST['uname']; // i valori andrebbero sanitizzati
+    }else{
+        $userName='';
+    }
+    if(isset($_POST['psw'])){
+      $myPassword=$_POST['psw'];  
+    }else{
+        $myPassword='';
+    }
+    
     
     $query="SELECT * FROM users WHERE username='$userName' AND password='$myPassword' AND active='1'";
     
@@ -136,7 +151,7 @@ if(!isset($_COOKIE['LOGIN'])){
        // se non trovo alcuna riga le credenziali sono sbagliate, dovrò stampare un messaggio
         
         // il messaggio verrà creato solo se ho effettivamente inviato il form
-        if(($_POST['uname']!='')&&($_POST['psw'])){
+        if((isset($_POST['psw']))&&(isset($_POST['uname']))&&($_POST['uname']!='')&&($_POST['psw']!='')){
             $errorMessage="<p class='error'>Le credenziali sono errate</p>"; 
         }
        
